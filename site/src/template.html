@@ -1,0 +1,207 @@
+<!-- This template is injected into #app by main.js -->
+<header class="top" id="topHeader"><div class="wrap topin">
+  <a class="brand" href="#"><div class="logoMark" id="logoMark">N</div><div class="brandText"><b id="brandNameTop">המעשנת</b><small id="brandSubTop">VAPE SHOP</small></div></a>
+  <nav class="nav"><a href="#catalog">קטלוג</a><a href="#categories">קטגוריות</a><a href="#about">אודות</a></nav>
+  <div class="grow"></div>
+  <a class="btn wa waLink" target="_blank" rel="noopener">וואטסאפ</a>
+  <button class="btn primary" onclick="scrollToCatalog()">צפה בקטלוג</button>
+</div></header>
+
+<main>
+<section class="hero">
+  <div id="hero3d"></div>
+  <div class="heroPhotoFrame"><img id="heroImage" alt="מוצרי אידוי מקצועיים עם עשן"></div>
+  <div class="heroGridLines"></div>
+  <div class="wrap"><div class="heroBox"><div class="heroContent">
+    <span class="heroKicker">EST. 2024 / WHOLESALE SHOWROOM</span>
+    <div class="eyebrow" id="heroEyebrow">קטלוג B2B חכם לעסקים</div>
+    <h1 id="heroTitle">מוצרים. מחירים. הזמנות.<br>במקום אחד.</h1>
+    <p id="heroText">מערכת קטלוג עסקית מהירה ונוחה, עם מוצרים, מלאי, מחירים וקטגוריות שניתנים לעריכה מלאה מתוך פאנל הניהול.</p>
+    <div class="heroActions">
+      <button class="btn secondary" onclick="scrollToCatalog()">פתח קטלוג</button>
+      <a class="btn wa waLink" target="_blank" rel="noopener">הזמנה בוואטסאפ</a>
+    </div>
+    <div class="heroStat">
+      <div class="stat"><b id="statProducts">0</b><span>מוצרים בקטלוג</span></div>
+      <div class="stat"><b id="statCategories">0</b><span>קטגוריות</span></div>
+      <div class="stat"><b>24/7</b><span>קטלוג זמין לעסקים</span></div>
+    </div>
+  </div></div></div>
+</section>
+
+<section id="categories" class="section"><div class="wrap">
+  <div class="sectionHead"><div><h2>קטגוריות</h2><p>בחר קטגוריה להצגת המוצרים הרלוונטיים.</p></div></div>
+  <div class="categories" id="categoryCards"></div>
+</div></section>
+
+<section id="catalog" class="section"><div class="wrap">
+  <div class="sectionHead">
+    <div><h2>קטלוג מוצרים</h2><p id="catalogSubtitle">כל המוצרים במקום אחד</p></div>
+    <div id="resultsCount" style="color:var(--muted)"></div>
+  </div>
+  <div class="catalogTools">
+    <input id="search" class="field" placeholder="חיפוש לפי שם, מק״ט או מותג..." oninput="renderProducts()">
+    <select id="catFilter" class="field" onchange="renderProducts()"><option value="">כל הקטגוריות</option></select>
+    <select id="brandFilter" class="field" onchange="renderProducts()"><option value="">כל המותגים</option></select>
+    <select id="sort" class="field" onchange="renderProducts()">
+      <option value="featured">מומלצים</option>
+      <option value="priceAsc">מחיר: נמוך לגבוה</option>
+      <option value="priceDesc">מחיר: גבוה לנמוך</option>
+      <option value="name">שם א-ת</option>
+    </select>
+  </div>
+  <div class="products" id="productsGrid"></div>
+</div></section>
+
+<section id="about" class="section"><div class="wrap">
+  <div class="adminCard">
+    <div class="sectionHead"><div>
+      <h2 id="aboutTitle">קטלוג עסקי שנבנה לעבוד מהר</h2>
+      <p id="aboutText">ניתן לערוך את כל המידע המרכזי באתר מתוך פאנל הניהול — בלי לפתוח קוד.</p>
+    </div></div>
+  </div>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap">
+  <b id="footerBrand">המעשנת</b>
+  <div style="margin-top:8px" id="footerText"></div>
+  <div style="margin-top:14px">
+    <a class="btn wa waLink" target="_blank" rel="noopener">להזמנות ומשלוחים בוואטסאפ</a>
+    <span id="footerPhone" style="margin-inline-start:10px"></span>
+  </div>
+  <div style="margin-top:20px">
+    <button onclick="openAdmin()" style="font-size:12px;color:var(--muted);opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">כניסת מנהל</button>
+  </div>
+</div></footer>
+
+<!-- Admin Login Gate -->
+
+        <div class="adminCard" style="margin-top:20px">
+          <h3>פעולות מהירות</h3>
+          <div class="adminActions">
+            <button class="btn primary" onclick="openProductModal()">+ מוצר חדש</button>
+            <button class="btn ghost" onclick="switchAdmin('homepage',document.querySelector('[data-page=homepage]'))">עריכת דף הבית</button>
+            <button class="btn ghost" onclick="exportData()">הורדת גיבוי</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-products"><div class="publishBar">
+  <div class="publishTxt">
+    <b>פרסום שינויים</b>
+    <p>העריכה נשמרת בדפדפן הזה בלבד. כדי שהלקוחות יראו אותה, הורד את קובץ הנתונים והחלף בו את הקובץ src/data.json במאגר.</p>
+  </div>
+  <div class="publishBtns">
+    <button class="btn primary" onclick="publishData()">הורד קובץ נתונים</button>
+    <label class="btn ghost">טען קובץ<input type="file" accept="application/json" onchange="loadDataFile(event)" hidden></label>
+  </div>
+</div>
+
+        <div class="adminCard">
+          <div class="sectionHead"><div><h2>מוצרים</h2><p>עריכה, שכפול ומחיקה.</p></div><button class="btn primary" onclick="openProductModal()">+ הוסף מוצר</button></div>
+          <div style="overflow:auto"><table class="prodTable"><thead><tr><th>תמונה</th><th>מוצר</th><th>מחיר</th><th>קטגוריה</th><th>מלאי</th><th>טעמים</th><th>פעולות</th></tr></thead><tbody id="adminProducts"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-categories">
+        <div class="adminCard">
+          <h2>קטגוריות</h2>
+          <div class="grid2" style="margin-top:16px">
+            <div><label class="label">שם קטגוריה חדשה</label><input id="newCat" class="input" placeholder="לדוגמה: אביזרים"></div>
+            <div style="align-self:end"><button class="btn primary" onclick="addCategory()">הוסף קטגוריה</button></div>
+          </div>
+          <div id="adminCats" style="margin-top:18px"></div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-homepage">
+        <div class="adminCard">
+          <h2>דף הבית</h2>
+          <div class="grid2" style="margin-top:16px">
+            <div><label class="label">שורת כותרת קטנה</label><input id="setHeroEyebrow" class="input"></div>
+            <div><label class="label">כותרת ראשית</label><input id="setHeroTitle" class="input"></div>
+          </div>
+          <div style="margin-top:12px"><label class="label">טקסט ראשי</label><textarea id="setHeroText" class="textarea"></textarea></div>
+          <div class="grid2" style="margin-top:12px">
+            <div><label class="label">כותרת אודות</label><input id="setAboutTitle" class="input"></div>
+            <div><label class="label">טקסט אודות</label><input id="setAboutText" class="input"></div>
+          </div>
+          <div class="adminActions"><button class="btn primary" onclick="saveHomepage()">שמור שינויים</button></div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-business">
+        <div class="adminCard">
+          <h2>פרטי העסק</h2>
+          <div class="grid2" style="margin-top:16px">
+            <div><label class="label">שם העסק</label><input id="setBusinessName" class="input"></div>
+            <div><label class="label">שורת משנה</label><input id="setBusinessSub" class="input"></div>
+            <div><label class="label">טלפון</label><input id="setPhone" class="input"></div>
+            <div><label class="label">אימייל</label><input id="setEmail" class="input"></div>
+            <div><label class="label">מספר וואטסאפ בפורמט בינלאומי</label><input id="setWhatsapp" class="input" placeholder="972536364744"></div>
+            
+          </div>
+          <div style="margin-top:12px"><label class="label">טקסט בפוטר</label><input id="setFooterText" class="input"></div>
+          <div style="margin-top:12px"><label class="label">לוגו</label><input type="file" accept="image/*" class="input" onchange="uploadLogo(event)"><img id="logoPreview" class="previewLogo hidden"></div>
+          <div class="adminActions"><button class="btn primary" onclick="saveBusiness()">שמור פרטים</button></div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-design">
+        <div class="adminCard">
+          <h2>עיצוב וצבעים</h2>
+          <div class="grid3" style="margin-top:16px">
+            <div><label class="label">צבע ראשי</label><div class="colorRow"><input id="setPrimary" type="color"><input id="setPrimaryText" class="input"></div></div>
+            <div><label class="label">צבע משני</label><div class="colorRow"><input id="setSecondary" type="color"><input id="setSecondaryText" class="input"></div></div>
+            <div><label class="label">צבע הדגשה</label><div class="colorRow"><input id="setAccent" type="color"><input id="setAccentText" class="input"></div></div>
+          </div>
+          <div class="adminActions"><button class="btn primary" onclick="saveDesign()">החל צבעים</button><button class="btn ghost" onclick="resetDesign()">חזור לברירת מחדל</button></div>
+        </div>
+      </div>
+
+      <div class="adminPage" id="page-backup">
+        <div class="adminCard">
+          <h2>גיבוי וייבוא</h2>
+          <p style="color:var(--muted)">מומלץ להוריד גיבוי לאחר שינויים גדולים. אפשר להעביר את הקובץ למכשיר אחר ולהחזיר את כל הנתונים.</p>
+          <div class="adminActions">
+            <button class="btn primary" onclick="exportData()">הורד גיבוי JSON</button>
+            <label class="btn ghost" style="cursor:pointer">ייבא גיבוי JSON<input type="file" accept="application/json" hidden onchange="importData(event)"></label>
+            <button class="btn ghost" onclick="exportCSV()">ייצוא מוצרים CSV</button>
+            <label class="btn ghost" style="cursor:pointer">ייבוא מוצרים CSV<input type="file" accept=".csv,text/csv" hidden onchange="importCSV(event)"></label>
+            <button class="btn danger" onclick="resetAll()">איפוס הגדרות</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="modal" id="productModal"><div class="modalBox">
+  <div class="modalHead"><h3 id="productModalTitle">מוצר חדש</h3><button class="close" onclick="closeProductModal()">×</button></div>
+  <div class="grid2" style="margin-top:16px">
+    <div><label class="label">שם מוצר</label><input id="pName" class="input"></div>
+    <div><label class="label">מק״ט</label><input id="pSku" class="input"></div>
+    <div><label class="label">מחיר</label><input id="pPrice" type="number" step="0.01" class="input"></div>
+    <div><label class="label">מחיר קודם / מחירון</label><input id="pOldPrice" type="number" step="0.01" class="input"></div>
+    <div><label class="label">קטגוריה</label><select id="pCategory" class="select"></select></div>
+    <div><label class="label">מותג</label><input id="pBrand" class="input"></div>
+    <div><label class="label">מלאי</label><input id="pStock" type="number" class="input"></div>
+    <div><label class="label">תגית</label><input id="pBadge" class="input" placeholder="חדש / מבצע"></div>
+  </div>
+  <div style="margin-top:12px"><label class="label">תיאור</label><textarea id="pDesc" class="textarea"></textarea></div>
+  <div class="flavBlock">
+    <div class="flavBlockHead"><label class="label" style="margin:0">טעמים — סמן "אזל" לכל טעם שנגמר</label>
+      <div style="display:flex;gap:6px"><button class="iconBtn" onclick="allFlavorsIn()">הכל במלאי</button><button class="iconBtn" onclick="allFlavorsOut()">הכל אזל</button></div>
+    </div>
+    <div id="flavorEditor" class="flavEditor"></div>
+    <div class="flavAdd"><input id="newFlavor" class="input" placeholder="שם טעם חדש, אפשר כמה מופרדים בפסיק"><button class="btn ghost" onclick="addFlavor()">הוסף</button></div>
+  </div>
+  <div class="grid2" style="margin-top:12px">
+    <div><label class="label">קישור לתמונה</label><input id="pImage" class="input" placeholder="https://..."></div>
+    <div><label class="label">או העלאת תמונה מהמכשיר</label><input id="pUpload" type="file" accept="image/*" class="input" onchange="productImageUpload(event)"></div>
+  </div>
+  <div class="adminActions"><button class="btn primary" onclick="saveProduct()">שמור מוצר</button><button class="btn ghost" onclick="closeProductModal()">ביטול</button></div>
+</div></div>
+
+<div class="toast" id="toast">נשמר</div>
